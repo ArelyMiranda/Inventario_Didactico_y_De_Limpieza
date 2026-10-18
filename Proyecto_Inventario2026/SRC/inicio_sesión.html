@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="./output.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.0/css/all.min.css">
+  <title>Iniciar sesión</title>
+</head>
+
+<body class="min-h-screen bg-slate-50 text-slate-800">
+
+    <!-- CONTENEDOR PRINCIPAL -->
+    <main class="min-h-screen flex flex-col">
+
+        <!-- ENCABEZADO -->
+        <header class="relative z-10 mx-auto flex w-full max-w-7xl flex-col items-center
+        gap-4 px-6 pb-6 pt-20 sm:flex-row sm:items-center sm:gap-6 sm:px-10 sm:pt-12">
+
+            <!-- LOGO -->
+            <div class="shrink-0">
+                <img
+                    src="../img/INBEFIC.jpg"
+                    alt="Logo del Instituto Nacional Prof. Bertha Fidelia Cañas"
+                    class="h-32 w-32 object-contain sm:h-40 sm:w-40">
+            </div>
+
+            <!-- NOMBRE INSTITUCIÓN -->
+            <div class="text-center sm:border-l sm:border-slate-300 sm:pl-7 sm:text-left">
+
+                <h1 class="text-3xl font-bold tracking-wide text-blue-950 sm:text-4xl">
+                    INBEFIC
+                </h1>
+
+                <p class="mt-1 text-base leading-6 text-slate-700 sm:text-lg">
+                    Instituto Nacional Prof.
+                    <br>
+                    Bertha Fidelia Cañas
+                </p>
+
+            </div>
+
+        </header>
+
+
+        <!-- FORMULARIO -->
+        <div class="flex justify-center px-4">
+
+            <div class="w-full max-w-md bg-white rounded-2xl shadow-xl p-6 sm:p-8 mb-10">
+
+                <!-- TITULO -->
+                <h2 class="text-3xl font-bold text-center text-blue-950">
+                    Iniciar sesión
+                </h2>
+
+                <p class="text-center text-slate-600 mt-2 mb-8">
+                    Ingresa tus datos para iniciar sesión.
+                </p>
+
+
+                <!-- CORREO -->
+                <div class="mb-5">
+
+                    <label
+                        for="correo"
+                        class="block text-sm font-medium text-slate-700 mb-2">
+
+                        Correo electrónico
+
+                    </label>
+
+                    <input
+                        type="email"
+                        id="correo"
+                        placeholder="ejemplo@correo.com"
+                        class="w-full px-4 py-3 border border-slate-300 rounded-lg outline-none
+                        focus:ring-2 focus:ring-blue-600 focus:border-blue-600">
+
+                    <p
+                        id="errorCorreo"
+                        class="mt-1 text-sm text-red-600">
+                    </p>
+
+                </div>
+
+
+                <!-- CONTRASEÑA -->
+                <div class="mb-5">
+
+                    <label
+                        for="password"
+                        class="block text-sm font-medium text-slate-700 mb-2">
+
+                        Contraseña
+
+                    </label>
+
+                    <div class="relative">
+
+                        <input
+                            type="password"
+                            id="password"
+                            placeholder="Ingresa tu contraseña"
+                            class="w-full px-4 py-3 pr-12 border border-slate-300 rounded-lg outline-none
+                            focus:ring-2 focus:ring-blue-600 focus:border-blue-600">
+
+                        <button
+                            type="button"
+                            onclick="mostrarPasword()"
+                            class="absolute right-3 top-1/2 -translate-y-1/2
+                            text-slate-500 hover:text-blue-600">
+
+                            <i id="iconPassword" class="fa-solid fa-eye"></i>
+
+                        </button>
+
+                    </div>
+
+                    <p
+                        id="errorPasword"
+                        class="mt-1 text-sm text-red-600">
+                    </p>
+
+                </div>
+
+
+                <!-- MENSAJE -->
+                <p
+                    id="mensaje"
+                    class="text-center text-sm font-medium mb-4">
+                </p>
+
+
+                <!-- BOTÓN -->
+                <button
+                    type="button"
+                    id="btnIniciarSesion"
+                    class="flex min-h-16 w-4/5 mx-auto items-center justify-center
+                    rounded-2xl bg-blue-700 px-6 py-3 text-white shadow-lg
+                    transition duration-300 hover:-translate-y-1 hover:bg-blue-800
+                    hover:shadow-xl focus:outline-none focus:ring-4
+                    focus:ring-blue-300 active:scale-95">
+
+                    <span class="text-base font-bold sm:text-2xl">
+                        Iniciar sesión
+                    </span>
+
+                </button>
+
+            </div>
+
+        </div>
+
+    </main>
+
+
+    <!-- JAVASCRIPT -->
+    <script>
+
+        // Mostrar y ocultar contraseña
+        function mostrarPasword() {
+
+            const password = document.getElementById("password");
+            const icono = document.getElementById("iconPassword");
+
+            if (password.type === "password") {
+
+                password.type = "text";
+
+                icono.classList.remove("fa-eye");
+                icono.classList.add("fa-eye-slash");
+
+            } else {
+
+                password.type = "password";
+
+                icono.classList.remove("fa-eye-slash");
+                icono.classList.add("fa-eye");
+
+            }
+        }
+
+
+        // ELEMENTOS
+        const btnIniciarSesion =
+            document.getElementById("btnIniciarSesion");
+
+        const correo =
+            document.getElementById("correo");
+
+        const password =
+            document.getElementById("password");
+
+        const errorCorreo =
+            document.getElementById("errorCorreo");
+
+        const errorPasword =
+            document.getElementById("errorPasword");
+
+        const mensaje =
+            document.getElementById("mensaje");
+
+
+        // INICIAR SESIÓN
+        btnIniciarSesion.addEventListener("click", function () {
+
+            let formularioValido = true;
+
+
+            // Limpiar mensajes
+            errorCorreo.textContent = "";
+            errorPasword.textContent = "";
+            mensaje.textContent = "";
+
+
+            // VALIDAR CORREO
+            if (correo.value.trim() === "") {
+
+                errorCorreo.textContent =
+                    "El correo es obligatorio.";
+
+                formularioValido = false;
+
+            } else if (!correo.validity.valid) {
+
+                errorCorreo.textContent =
+                    "Ingresa un correo válido.";
+
+                formularioValido = false;
+
+            }
+
+
+            // VALIDAR CONTRASEÑA
+            if (password.value.trim() === "") {
+
+                errorPasword.textContent =
+                    "La contraseña es obligatoria.";
+
+                formularioValido = false;
+            }
+
+
+            // SI LOS CAMPOS TIENEN ERRORES
+            if (!formularioValido) {
+                return;
+            }
+
+
+            // BUSCAR USUARIO REGISTRADO
+            const datosGuardados =
+                localStorage.getItem("usuarioINBEFIC");
+
+
+            // SI NO EXISTE UNA CUENTA
+            if (!datosGuardados) {
+
+                mensaje.style.color = "#c62828";
+
+                mensaje.textContent =
+                    "No existe una cuenta registrada. Primero debes registrarte.";
+
+                return;
+            }
+
+
+            // CONVERTIR DATOS GUARDADOS
+            const usuarioRegistrado =
+                JSON.parse(datosGuardados);
+
+
+            // COMPROBAR CORREO
+            if (
+                correo.value.trim() !==
+                usuarioRegistrado.correo
+            ) {
+
+                errorCorreo.textContent =
+                    "El correo no coincide con la cuenta registrada.";
+
+                formularioValido = false;
+            }
+
+
+            // COMPROBAR CONTRASEÑA
+            if (
+                password.value !==
+                usuarioRegistrado.password
+            ) {
+
+                errorPasword.textContent =
+                    "La contraseña es incorrecta.";
+
+                formularioValido = false;
+            }
+
+
+            // SI LOS DATOS NO COINCIDEN
+            if (!formularioValido) {
+                return;
+            }
+
+
+            // CREAR SESIÓN
+            localStorage.setItem(
+                "sesionINBEFIC",
+                "activa"
+            );
+
+
+            // MENSAJE DE ÉXITO
+            mensaje.style.color = "#16803c";
+
+            mensaje.textContent =
+                "✓ Inicio de sesión exitoso.";
+
+
+            // ENTRAR AL INVENTARIO
+            setTimeout(function () {
+
+                window.location.href =
+                    "Inventario.html";
+
+            }, 700);
+
+        });
+
+    </script>
+
+
+
+            <footer class="bg-slate-800 border-t-4 border-red-600 text-white py-6 px-6">
+
+                <p class="text-center text-sm md:text-base">
+                   INBEFIC: Plataforma Oficial De Inventario de Recurso Didáctico y Material de Limpieza 
+
+                   <p class="text-center">&copy;2026 Derechos Reservados: Merlyn/Nataly/Dileymi/Sandra/Otoniel</p>
+
+                </p>
+                
+            </footer>
+</body>
+</html>

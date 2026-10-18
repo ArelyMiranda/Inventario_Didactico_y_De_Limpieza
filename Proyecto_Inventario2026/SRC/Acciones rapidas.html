@@ -1,0 +1,1852 @@
+
+<html lang="es">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Acciones rapidas</title>
+
+   <link href="./output.css" rel="stylesheet">
+
+    <style>
+
+        /* =========================================
+           MENÚ LATERAL
+        ========================================= */
+
+        #sidebar {
+            width: 0;
+            min-width: 0;
+            overflow: hidden;
+            transition: width 0.3s ease, min-width 0.3s ease;
+        }
+
+        #sidebar.menu-abierto {
+            width: 260px;
+            min-width: 260px;
+        }
+
+        #area-contenido {
+            min-width: 0;
+            flex: 1;
+        }
+
+
+       
+
+        .tabla-contenedor {
+            width: 100%;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        table {
+            width: 100%;
+            min-width: 900px;
+            border-collapse: collapse;
+        }
+
+
+
+        @media (max-width: 767px) {
+
+            #sidebar.menu-abierto {
+                width: 230px;
+                min-width: 230px;
+            }
+
+            table {
+                min-width: 850px;
+            }
+
+        }
+
+
+        @media print {
+
+            body {
+                background: white !important;
+            }
+
+            #sidebar,
+            #boton-menu,
+            #botones-acciones {
+                display: none !important;
+            }
+
+            #area-contenido {
+                width: 100% !important;
+                margin: 0 !important;
+                padding: 0 !important;
+            }
+
+            #contenedor-inventario {
+                max-width: none !important;
+                box-shadow: none !important;
+                border: none !important;
+            }
+
+            table {
+                min-width: 0 !important;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body class="bg-slate-100 min-h-screen text-slate-800">
+
+
+<div class="flex min-h-screen w-full">
+
+
+    <!-- =========================================
+         MENÚ LATERAL
+    ========================================== -->
+
+    <aside id="sidebar"
+        class="bg-white border-r border-slate-300 shadow-sm flex-shrink-0">
+
+        <div class="w-[260px] min-h-screen flex flex-col">
+
+
+            <!-- LOGO DEL INSTITUTO -->
+
+            <div class="px-5 py-5 border-b border-slate-200 text-center">
+
+                <img
+                    src="../img/INBEFIC.jpg"
+                    alt="Logo Instituto Nacional Prof. Bertha Fidelia Cañas"
+                    class="w-28 h-28 mx-auto object-contain mb-3"
+                >
+
+                <h1 class="text-lg font-bold text-slate-900">
+                    INBEFIC
+                </h1>
+
+                <p class="text-xs text-slate-500 mt-1">
+                    Aplicacion de Inventario
+                </p>
+
+            </div>
+
+
+            <nav class="flex-1 p-4 space-y-2">
+
+
+                <!-- INVENTARIO -->
+
+                <a href="Inventario.html"
+                    class="flex items-center gap-3 px-4 py-3 rounded-lg
+                    bg-slate-900 text-white font-medium">
+
+                    <span>📦</span>
+
+                    <span>
+                        Inventario
+                    </span>
+
+                </a>
+
+
+                <!-- ACCIONES RÁPIDAS -->
+
+                <a href="Acciones rapidas.html"
+                    class="flex items-center gap-3 px-4 py-3 rounded-lg
+                    text-slate-800 hover:bg-slate-100
+                    font-medium transition">
+
+                    <span>⚡</span>
+
+                    <span>
+                        Acciones Rápidas
+                    </span>
+
+                </a>
+
+
+                <!-- REPORTES -->
+
+                <a href="Generar_Reporte.html"
+                    class="flex items-center gap-3 px-4 py-3 rounded-lg
+                    text-slate-800 hover:bg-slate-100
+                    font-medium transition">
+
+                    <span>📊</span>
+
+                    <span>
+                        Generar Reportes
+                    </span>
+
+                </a>
+
+
+            </nav>
+
+
+            <!-- CERRAR SESIÓN -->
+
+            <div class="p-4 border-t border-slate-200">
+
+                <button
+                    onclick="cerrarSesion()"
+                    class="w-full flex items-center gap-3 px-4 py-3
+                    rounded-lg text-red-600 hover:bg-red-50
+                    font-medium transition">
+
+                    <span>🚪</span>
+
+                    <span>
+                        Cerrar sesión
+                    </span>
+
+                </button>
+
+            </div>
+
+        </div>
+
+    </aside>
+
+
+
+    <!-- =========================================
+         ÁREA PRINCIPAL
+    ========================================== -->
+
+    <div id="area-contenido"
+        class="flex flex-col min-h-screen">
+
+
+        <!-- ======================================
+             ENCABEZADO
+        ======================================= -->
+
+        <header
+            class="bg-slate-800 border-b border-slate-900
+            shadow-sm sticky top-0 z-20">
+
+            <div
+                class="flex items-center gap-4
+                px-4 sm:px-6 lg:px-8 py-4">
+
+
+                <!-- BOTÓN MENÚ -->
+
+                <button
+                    id="boton-menu"
+                    onclick="alternarMenu()"
+                    class="flex-shrink-0 w-11 h-11 rounded-lg
+                    bg-white/10 hover:bg-white/20
+                    text-white text-xl transition">
+
+                    <span id="icono-menu">
+                        ☰
+                    </span>
+
+                </button>
+
+
+                <div>
+
+                    <h2
+                        class="text-xl sm:text-2xl
+                        font-bold text-white">
+
+                    </h2>
+
+                    <p class="text-sm text-slate-300">
+                    </p>
+
+                </div>
+
+            </div>
+
+        </header>
+
+
+        <main
+            class="flex-1 w-full
+            px-4 sm:px-6 lg:px-8
+            py-5 sm:py-8">
+
+
+            <div
+                id="contenedor-inventario"
+                class="w-full max-w-5xl mx-auto
+                bg-white rounded-2xl shadow-sm
+                border border-slate-200 overflow-hidden">
+
+
+                <div
+                    class="bg-emerald-600
+                    px-5 sm:px-8 py-6">
+
+                    <div
+                        class="flex flex-col
+                        sm:flex-row
+                        sm:items-center
+                        sm:justify-between
+                        gap-5">
+
+
+                        <div>
+
+                            <h1
+                                class="text-2xl sm:text-3xl
+                                font-bold text-white">
+
+                                INBEFIC
+
+                            </h1>
+
+                            <p
+                                class="text-white/90 mt-1">
+
+                                Panel General de Gestión
+                                y Movimientos
+
+                            </p>
+
+                        </div>
+
+
+                        <div
+                            class="bg-white rounded-xl
+                            px-5 py-3 shadow-sm">
+
+                            <p
+                                class="text-xs text-slate-500">
+
+                                Aplicacion
+
+                            </p>
+
+                            <p
+                                class="font-bold text-slate-900">
+
+                                Inventario
+
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- ==================================
+                     FORMULARIO
+                =================================== -->
+
+                <div
+                    class="px-5 sm:px-8 py-6">
+
+
+                    <div
+                        class="max-w-2xl mx-auto
+                        border border-slate-200
+                        rounded-2xl p-5 sm:p-6
+                        bg-slate-50/70
+                        shadow-sm">
+
+
+                        <!-- ENCABEZADO FORMULARIO -->
+
+                        <div
+                            class="flex flex-col
+                            sm:flex-row
+                            sm:items-center
+                            sm:justify-between
+                            gap-3 mb-5
+                            border-b
+                            border-slate-200/80
+                            pb-3">
+
+
+                            <h3
+                                class="text-lg font-bold
+                                text-slate-800
+                                flex items-center
+                                gap-2">
+
+                                📝 Registrar Movimiento
+
+                            </h3>
+
+
+                            <span
+                                class="text-xs font-semibold
+                                px-2.5 py-1
+                                bg-emerald-100
+                                text-emerald-800
+                                rounded-full
+                                w-fit">
+
+                                Formulario Activo
+
+                            </span>
+
+                        </div>
+
+
+
+                        <!-- FORMULARIO -->
+
+                        <div
+                            class="grid grid-cols-1
+                            md:grid-cols-2
+                            gap-4 mb-5">
+
+
+                            <div
+                                class="md:col-span-2">
+
+                                <label
+                                    class="block text-xs
+                                    font-bold
+                                    text-slate-600
+                                    uppercase
+                                    tracking-wider mb-1">
+
+                                    Registrado por
+
+                                </label>
+
+
+                                <input
+                                    type="text"
+                                    id="responsable"
+                                    placeholder="Nombre completo del encargado"
+                                    class="w-full
+                                    border border-slate-300
+                                    rounded-xl p-3
+                                    text-sm bg-white
+                                    focus:ring-2
+                                    focus:ring-emerald-500
+                                    focus:border-emerald-500
+                                    outline-none
+                                    transition-all
+                                    shadow-sm">
+
+                            </div>
+
+
+
+                            <div>
+
+                                <label
+                                    class="block text-xs
+                                    font-bold
+                                    text-slate-600
+                                    uppercase
+                                    tracking-wider mb-1">
+
+                                    Código ID 
+
+                                </label>
+
+
+                                <input
+                                    type="text"
+                                    id="codigo-id"
+                                    placeholder=""
+                                    class="w-full
+                                    border border-slate-300
+                                    rounded-xl p-3
+                                    text-sm bg-white
+                                    focus:ring-2
+                                    focus:ring-emerald-500
+                                    focus:border-emerald-500
+                                    outline-none
+                                    transition-all
+                                    shadow-sm">
+
+                            </div>
+
+
+
+
+                            <div>
+
+                                <label
+                                    class="block text-xs
+                                    font-bold
+                                    text-slate-600
+                                    uppercase
+                                    tracking-wider mb-1">
+
+                                    Fecha de Registro
+
+                                </label>
+
+
+                                <input
+                                    type="date"
+                                    id="fecha"
+                                    class="w-full
+                                    border border-slate-300
+                                    rounded-xl p-3
+                                    text-sm bg-white
+                                    focus:ring-2
+                                    focus:ring-emerald-500
+                                    focus:border-emerald-500
+                                    outline-none
+                                    transition-all
+                                    shadow-sm
+                                    text-slate-700">
+
+                            </div>
+
+
+
+                            <!-- PRODUCTO -->
+
+                            <div
+                                class="md:col-span-2">
+
+                                <label
+                                    class="block text-xs
+                                    font-bold
+                                    text-slate-600
+                                    uppercase
+                                    tracking-wider mb-1">
+
+                                    Producto
+
+                                </label>
+
+
+                                <input
+                                    type="text"
+                                    id="producto"
+                                    placeholder="Nombre o descripción del producto"
+                                    class="w-full
+                                    border border-slate-300
+                                    rounded-xl p-3
+                                    text-sm bg-white
+                                    focus:ring-2
+                                    focus:ring-emerald-500
+                                    focus:border-emerald-500
+                                    outline-none
+                                    transition-all
+                                    shadow-sm">
+
+                            </div>
+
+
+
+                            <!-- CANTIDAD -->
+
+                            <div>
+
+                                <label
+                                    class="block text-xs
+                                    font-bold
+                                    text-slate-600
+                                    uppercase
+                                    tracking-wider mb-1">
+
+                                    Cantidad
+
+                                </label>
+
+
+                                <input
+                                    type="number"
+                                    id="cantidad"
+                                    placeholder="0"
+                                    class="w-full
+                                    border border-slate-300
+                                    rounded-xl p-3
+                                    text-sm bg-white
+                                    focus:ring-2
+                                    focus:ring-emerald-500
+                                    focus:border-emerald-500
+                                    outline-none
+                                    transition-all
+                                    shadow-sm">
+
+                            </div>
+
+
+
+                            <!-- CATEGORÍA -->
+
+                            <div>
+
+                                <label
+                                    class="block text-xs
+                                    font-bold
+                                    text-slate-600
+                                    uppercase
+                                    tracking-wider mb-1">
+
+                                    Categoría
+
+                                </label>
+
+
+                                <select
+                                    id="categoria"
+                                    class="w-full
+                                    border border-slate-300
+                                    rounded-xl p-3
+                                    text-sm bg-white
+                                    focus:ring-2
+                                    focus:ring-emerald-500
+                                    focus:border-emerald-500
+                                    outline-none
+                                    transition-all
+                                    shadow-sm
+                                    text-slate-700">
+
+
+                                    <option value="didactico">
+                                        🎒 Didáctico
+                                    </option>
+
+
+                                    <option value="limpieza">
+                                        🧹 Limpieza
+                                    </option>
+
+
+                                </select>
+
+                            </div>
+
+                        </div>
+
+
+
+                        <!-- =================================
+                             BOTONES DE REGISTRO
+                        ================================== -->
+
+                        <div
+                            class="grid grid-cols-1
+                            sm:grid-cols-2
+                            gap-3 mb-4"
+                            id="botones-acciones">
+
+
+                            <button
+                                onclick="registrar('Entrada')"
+                                class="bg-emerald-600
+                                hover:bg-emerald-700
+                                active:scale-[0.98]
+                                text-white font-bold
+                                py-3 px-4
+                                rounded-xl
+                                text-sm
+                                transition-all
+                                shadow-md
+                                flex items-center
+                                justify-center
+                                gap-2">
+
+                                📥 Registrar Entrada
+
+                            </button>
+
+
+                            <button
+                                onclick="registrar('Salida')"
+                                class="bg-rose-600
+                                hover:bg-rose-700
+                                active:scale-[0.98]
+                                text-white font-bold
+                                py-3 px-4
+                                rounded-xl
+                                text-sm
+                                transition-all
+                                shadow-md
+                                flex items-center
+                                justify-center
+                                gap-2">
+
+                                📤 Registrar Salida
+
+                            </button>
+
+                        </div>
+
+
+
+                        <!-- =================================
+                             BOTONES DE FILTRADO
+                        ================================== -->
+
+                        <div
+                            class="grid grid-cols-1
+                            sm:grid-cols-2
+                            gap-3 mb-4">
+
+
+                            <button
+                                onclick="filtrar('Entrada')"
+                                class="bg-slate-200
+                                hover:bg-slate-300
+                                text-slate-700
+                                font-bold
+                                py-2.5 px-4
+                                rounded-xl
+                                text-xs sm:text-sm
+                                transition-all">
+
+                                🔍 Ver Entradas
+
+                            </button>
+
+
+                            <button
+                                onclick="filtrar('Salida')"
+                                class="bg-slate-200
+                                hover:bg-slate-300
+                                text-slate-700
+                                font-bold
+                                py-2.5 px-4
+                                rounded-xl
+                                text-xs sm:text-sm
+                                transition-all">
+
+                                🔍 Ver Salidas
+
+                            </button>
+
+                        </div>
+
+
+
+                        <!-- MOSTRAR TODO -->
+
+                        <button
+                            onclick="mostrarTodos()"
+                            class="w-full
+                            bg-slate-700
+                            hover:bg-slate-800
+                            text-white
+                            font-bold
+                            py-2.5 px-4
+                            rounded-xl
+                            text-sm
+                            transition-all
+                            shadow-sm mb-4">
+
+                            📋 Mostrar Todo el Historial
+
+                        </button>
+
+                        <div
+                            class="grid grid-cols-1
+                            sm:grid-cols-2
+                            gap-3 pt-3
+                            border-t
+                            border-slate-200">
+
+
+                            <button
+                                id="btn-restaurar"
+                                onclick="restaurarHistorial()"
+                                class="w-full
+                                bg-amber-500
+                                hover:bg-amber-600
+                                text-white
+                                font-bold
+                                py-2.5 px-4
+                                rounded-xl
+                                text-xs sm:text-sm
+                                transition-all
+                                shadow-sm
+                                disabled:opacity-40
+                                disabled:cursor-not-allowed">
+
+                                🔄 Restaurar Copia
+
+                            </button>
+
+
+                            <button
+                                onclick="vaciarHistorial()"
+                                class="w-full
+                                bg-red-100
+                                hover:bg-red-200
+                                text-red-700
+                                font-bold
+                                py-2.5 px-4
+                                rounded-xl
+                                text-xs sm:text-sm
+                                transition-all">
+
+                                🗑️ Vaciar Historial
+
+                            </button>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+
+
+                <div
+                    class="px-5 sm:px-8 py-6
+                    border-t border-slate-200">
+
+
+                    <div class="mb-5">
+
+                        <h3
+                            id="titulo-tabla"
+                            class="text-lg font-bold
+                            text-slate-900">
+
+                            Historial Completo
+
+                        </h3>
+
+                        <p
+                            class="text-sm text-slate-500
+                            mt-1">
+
+                            Detalle de los movimientos
+                            registrados en la Aplicacion
+
+                        </p>
+
+                    </div>
+
+
+
+                    <!-- CONTENEDOR TABLA -->
+
+                    <div
+                        class="tabla-contenedor
+                        border border-slate-200
+                        rounded-xl">
+
+
+                        <table>
+
+
+                            <!-- ENCABEZADOS -->
+
+                            <thead
+                                class="bg-slate-800">
+
+                                <tr>
+
+                                    <th
+                                        class="px-4 py-3
+                                        text-center text-xs
+                                        font-bold text-white
+                                        uppercase">
+
+                                        ID
+
+                                    </th>
+
+                                    <th
+                                        class="px-4 py-3
+                                        text-center text-xs
+                                        font-bold text-white
+                                        uppercase">
+
+                                        Fecha
+
+                                    </th>
+
+                                    <th
+                                        class="px-4 py-3
+                                        text-center text-xs
+                                        font-bold text-white
+                                        uppercase">
+
+                                        Hora
+
+                                    </th>
+
+                                    <th
+                                        class="px-4 py-3
+                                        text-center text-xs
+                                        font-bold text-white
+                                        uppercase">
+
+                                        Tipo
+
+                                    </th>
+
+                                    <th
+                                        class="px-4 py-3
+                                        text-center text-xs
+                                        font-bold text-white
+                                        uppercase">
+
+                                        Producto
+
+                                    </th>
+
+                                    <th
+                                        class="px-4 py-3
+                                        text-center text-xs
+                                        font-bold text-white
+                                        uppercase">
+
+                                        Categoría
+
+                                    </th>
+
+                                    <th
+                                        class="px-4 py-3
+                                        text-center text-xs
+                                        font-bold text-white
+                                        uppercase">
+
+                                        Cantidad
+
+                                    </th>
+
+                                    <th
+                                        class="px-4 py-3
+                                        text-center text-xs
+                                        font-bold text-white
+                                        uppercase">
+
+                                        Registrado Por
+
+                                    </th>
+
+                                    <th
+                                        class="px-4 py-3
+                                        text-center text-xs
+                                        font-bold text-white
+                                        uppercase">
+
+                                        Acción
+
+                                    </th>
+
+                                </tr>
+
+                            </thead>
+
+
+                            <!-- DATOS -->
+
+                            <tbody
+                                id="tabla-historial"
+                                class="divide-y
+                                divide-slate-200
+                                bg-white">
+
+                            </tbody>
+
+
+                        </table>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </main>
+
+
+
+
+    </div>
+
+</div>
+
+
+
+<script>
+
+    const sidebar =
+        document.getElementById("sidebar");
+
+    const iconoMenu =
+        document.getElementById("icono-menu");
+
+    let menuAbierto = false;
+
+
+    function alternarMenu() {
+
+        menuAbierto = !menuAbierto;
+
+
+        if (menuAbierto) {
+
+            sidebar.classList.add(
+                "menu-abierto"
+            );
+
+            iconoMenu.textContent = "✕";
+
+        } else {
+
+            sidebar.classList.remove(
+                "menu-abierto"
+            );
+
+            iconoMenu.textContent = "☰";
+
+        }
+
+    }
+
+
+    function cerrarSesion() {
+
+        if (
+            confirm("¿Deseas cerrar sesión?")
+        ) {
+
+            window.location.href =
+                "index.html";
+
+        }
+
+    }
+
+
+
+    /* =========================================
+       HISTORIAL ORIGINAL
+    ========================================= */
+
+    let historial =
+        JSON.parse(
+            localStorage.getItem(
+                "historial_inventario"
+            )
+        ) || [];
+
+
+    renderizarTabla(historial);
+
+    actualizarEstadoBotonRestaurar();
+
+
+
+    /* =========================================
+       REGISTRAR
+    ========================================= */
+
+    function registrar(tipo) {
+
+        const responsableInput =
+            document.getElementById(
+                "responsable"
+            );
+
+        const codigoInput =
+            document.getElementById(
+                "codigo-id"
+            );
+
+        const fechaInput =
+            document.getElementById(
+                "fecha"
+            );
+
+        const productoInput =
+            document.getElementById(
+                "producto"
+            );
+
+        const cantidadInput =
+            document.getElementById(
+                "cantidad"
+            );
+
+        const categoriaSelect =
+            document.getElementById(
+                "categoria"
+            );
+
+
+        const responsable =
+            responsableInput.value.trim();
+
+
+        const producto =
+            productoInput.value.trim();
+
+
+        const cantidadNum =
+            parseInt(
+                cantidadInput.value.trim()
+            );
+
+
+        const categoria =
+            categoriaSelect.value;
+
+
+        const fechaSeleccionada =
+            fechaInput.value;
+
+
+
+        if (!responsable) {
+
+            alert(
+                "Por favor, ingresa el nombre de la persona que realiza el registro."
+            );
+
+            return;
+
+        }
+
+
+
+        if (
+            !producto ||
+            isNaN(cantidadNum) ||
+            cantidadNum <= 0
+        ) {
+
+            alert(
+                "Por favor, ingresa un producto y una cantidad válida mayor a 0."
+            );
+
+            return;
+
+        }
+
+
+
+        if (!fechaSeleccionada) {
+
+            alert(
+                "Por favor, selecciona una fecha."
+            );
+
+            return;
+
+        }
+
+
+
+        let customId =
+            codigoInput.value.trim();
+
+
+
+        /* ID AUTOMÁTICO */
+
+        if (!customId) {
+
+            customId =
+                `REG-${Date.now()
+                    .toString()
+                    .slice(-4)}`;
+
+        } else {
+
+
+            const registroPrevio =
+                historial.find(
+                    item =>
+                        item.id
+                            .toLowerCase() ===
+                        customId.toLowerCase()
+                );
+
+
+            if (
+                registroPrevio &&
+                registroPrevio.producto
+                    .toLowerCase() !==
+                producto.toLowerCase()
+            ) {
+
+                alert(
+                    `El ID "${customId}" ya está asignado al producto "${registroPrevio.producto}". No puedes asignárselo a "${producto}".`
+                );
+
+                return;
+
+            }
+
+        }
+
+
+
+        /* VALIDACIÓN DE STOCK */
+
+        if (tipo === "Salida") {
+
+
+            const stockActual =
+                obtenerStockActual(
+                    customId,
+                    producto
+                );
+
+
+            if (
+                cantidadNum >
+                stockActual
+            ) {
+
+                alert(
+                    `No hay suficiente stock. Stock disponible de "${producto}" (ID: ${customId}): ${stockActual} unidades.`
+                );
+
+                return;
+
+            }
+
+        }
+
+
+
+        /* NUEVO MOVIMIENTO */
+
+        const nuevoMovimiento = {
+
+            id: customId,
+
+            fecha:
+                fechaSeleccionada,
+
+            hora:
+                new Date()
+                    .toLocaleTimeString(
+                        [],
+                        {
+                            hour: "2-digit",
+                            minute: "2-digit"
+                        }
+                    ),
+
+            fechaRegistro:
+                new Date().toISOString(),
+
+            tipo:
+                tipo,
+
+            producto:
+                producto,
+
+            cantidad:
+                cantidadNum,
+
+            categoria:
+                categoria,
+
+            responsable:
+                responsable
+
+        };
+
+
+
+        historial.unshift(
+            nuevoMovimiento
+        );
+
+
+        guardarEnLocalStorage();
+
+
+
+        codigoInput.value = "";
+
+        productoInput.value = "";
+
+        cantidadInput.value = "";
+
+
+
+        renderizarTabla(
+            historial
+        );
+
+    }
+
+
+    function obtenerStockActual(
+        idProducto,
+        productoNombre
+    ) {
+
+
+        return historial.reduce(
+            (total, item) => {
+
+
+                const coincideId =
+                    item.id
+                        .trim()
+                        .toLowerCase() ===
+                    idProducto
+                        .trim()
+                        .toLowerCase();
+
+
+                const coincideNombre =
+                    item.producto
+                        .trim()
+                        .toLowerCase() ===
+                    productoNombre
+                        .trim()
+                        .toLowerCase();
+
+
+
+                if (
+                    coincideId ||
+                    coincideNombre
+                ) {
+
+
+                    return item.tipo ===
+                        "Entrada"
+
+                        ? total +
+                          parseInt(
+                              item.cantidad
+                          )
+
+                        : total -
+                          parseInt(
+                              item.cantidad
+                          );
+
+                }
+
+
+                return total;
+
+            },
+            0
+        );
+
+    }
+
+
+    function formatearFecha(
+        fechaStr
+    ) {
+
+
+        if (!fechaStr)
+            return "";
+
+
+        const partes =
+            fechaStr.split("-");
+
+
+        if (
+            partes.length !== 3
+        )
+            return fechaStr;
+
+
+        return `${partes[2]}/${partes[1]}/${partes[0]}`;
+
+    }
+
+
+
+    function renderizarTabla(
+        lista
+    ) {
+
+
+        const tbody =
+            document.getElementById(
+                "tabla-historial"
+            );
+
+
+        tbody.innerHTML = "";
+
+
+
+        if (
+            lista.length === 0
+        ) {
+
+
+            tbody.innerHTML = `
+
+                <tr>
+
+                    <td
+                        colspan="9"
+                        class="px-6 py-8
+                        text-center
+                        text-slate-400
+                        font-medium">
+
+                        No hay registros
+                        en el historial.
+
+                    </td>
+
+                </tr>
+
+            `;
+
+
+            return;
+
+        }
+
+
+
+        lista.forEach(
+            item => {
+
+
+                const fila =
+                    document.createElement(
+                        "tr"
+                    );
+
+
+                fila.className =
+                    "hover:bg-slate-50 transition";
+
+
+
+                const claseTipo =
+                    item.tipo === "Entrada"
+                        ? "bg-green-100 text-green-700"
+                        : "bg-red-100 text-red-700";
+
+
+
+                const catTexto =
+                    item.categoria ===
+                    "limpieza"
+
+                        ? "🧹 Limpieza"
+
+                        : "🎒 Didáctico";
+
+
+
+                const registradoPor =
+                    item.responsable ||
+                    "No especificado";
+
+
+
+                fila.innerHTML = `
+
+                    <td
+                        class="px-4 py-4
+                        text-sm font-medium
+                        text-slate-900">
+
+                        ${item.id}
+
+                    </td>
+
+
+                    <td
+                        class="px-4 py-4
+                        text-sm text-slate-800">
+
+                        ${formatearFecha(
+                            item.fecha
+                        )}
+
+                    </td>
+
+
+                    <td
+                        class="px-4 py-4
+                        text-sm text-slate-500">
+
+                        ${item.hora}
+
+                    </td>
+
+
+                    <td
+                        class="px-4 py-4
+                        text-sm">
+
+                        <span
+                            class="inline-flex
+                            px-3 py-1
+                            rounded-full
+                            text-xs font-bold
+                            ${claseTipo}">
+
+                            ${item.tipo}
+
+                        </span>
+
+                    </td>
+
+
+                    <td
+                        class="px-4 py-4
+                        text-sm font-semibold
+                        text-slate-900">
+
+                        ${item.producto}
+
+                    </td>
+
+
+                    <td
+                        class="px-4 py-4
+                        text-sm text-slate-800">
+
+                        ${catTexto}
+
+                    </td>
+
+
+                    <td
+                        class="px-4 py-4
+                        text-sm font-semibold
+                        text-slate-900">
+
+                        ${item.cantidad}
+
+                    </td>
+
+
+                    <td
+                        class="px-4 py-4
+                        text-sm font-medium
+                        text-slate-900">
+
+                        ${registradoPor}
+
+                    </td>
+
+
+                    <td
+                        class="px-4 py-4
+                        text-sm">
+
+                        <button
+                            class="bg-rose-50
+                            hover:bg-rose-100
+                            text-rose-600
+                            text-xs
+                            px-2.5 py-1
+                            rounded-lg
+                            font-bold
+                            transition-colors"
+
+                            onclick="eliminarRegistro(
+                                '${item.fechaRegistro}'
+                            )">
+
+                            ✕
+
+                        </button>
+
+                    </td>
+
+                `;
+
+
+                tbody.appendChild(
+                    fila
+                );
+
+            }
+        );
+
+    }
+
+
+    function eliminarRegistro(
+        fechaRegistro
+    ) {
+
+
+        if (
+            !confirm(
+                "¿Estás seguro de que deseas eliminar este registro?"
+            )
+        )
+            return;
+
+
+
+        localStorage.setItem(
+            "historial_backup",
+            JSON.stringify(
+                historial
+            )
+        );
+
+
+        actualizarEstadoBotonRestaurar();
+
+
+
+        historial =
+            historial.filter(
+                item =>
+                    item.fechaRegistro !==
+                    fechaRegistro
+            );
+
+
+
+        guardarEnLocalStorage();
+
+
+
+        renderizarTabla(
+            historial
+        );
+
+    }
+
+
+    function vaciarHistorial() {
+
+
+        if (
+            historial.length === 0
+        ) {
+
+
+            alert(
+                "El historial ya está vacío."
+            );
+
+
+            return;
+
+        }
+
+
+
+        const confirmar =
+            confirm(
+                "¿Estás seguro de que deseas borrar todo el historial?"
+            );
+
+
+
+        if (confirmar) {
+
+
+            localStorage.setItem(
+                "historial_backup",
+                JSON.stringify(
+                    historial
+                )
+            );
+
+
+            actualizarEstadoBotonRestaurar();
+
+
+
+            historial = [];
+
+
+
+            localStorage.removeItem(
+                "historial_inventario"
+            );
+
+
+
+            renderizarTabla(
+                historial
+            );
+
+
+
+            alert(
+                "Historial vaciado con éxito."
+            );
+
+        }
+
+    }
+
+
+
+    /* =========================================
+       RESTAURAR HISTORIAL
+    ========================================= */
+
+    function restaurarHistorial() {
+
+
+        const backup =
+            localStorage.getItem(
+                "historial_backup"
+            );
+
+
+        if (!backup) {
+
+
+            alert(
+                "No hay ninguna copia de seguridad disponible para restaurar."
+            );
+
+
+            return;
+
+        }
+
+
+
+        const confirmar =
+            confirm(
+                "¿Deseas restaurar la última copia de seguridad del historial?"
+            );
+
+
+
+        if (confirmar) {
+
+
+            historial =
+                JSON.parse(
+                    backup
+                );
+
+
+            guardarEnLocalStorage();
+
+
+
+            mostrarTodos();
+
+
+
+            alert(
+                "Historial restaurado con éxito."
+            );
+
+        }
+
+    }
+
+
+    function actualizarEstadoBotonRestaurar() {
+
+
+        const btn =
+            document.getElementById(
+                "btn-restaurar"
+            );
+
+
+        const backup =
+            localStorage.getItem(
+                "historial_backup"
+            );
+
+
+        if (btn) {
+
+            btn.disabled =
+                !backup;
+
+        }
+
+    }
+
+
+    function filtrar(
+        tipo
+    ) {
+
+
+        document.getElementById(
+            "titulo-tabla"
+        ).innerText =
+            `Historial de ${tipo}s`;
+
+
+
+        const filtrados =
+            historial.filter(
+                item =>
+                    item.tipo ===
+                    tipo
+            );
+
+
+
+        renderizarTabla(
+            filtrados
+        );
+
+    }
+
+
+    function mostrarTodos() {
+
+
+        document.getElementById(
+            "titulo-tabla"
+        ).innerText =
+            "Historial Completo";
+
+
+        renderizarTabla(
+            historial
+        );
+
+    }
+
+
+    function guardarEnLocalStorage() {
+
+
+        localStorage.setItem(
+            "historial_inventario",
+            JSON.stringify(
+                historial
+            )
+        );
+
+    }
+
+
+</script>
+
+            <!-- CONTENEDOR DE ABAJO -->
+
+            <footer class="bg-slate-800 border-t-4 border-red-600 text-white py-6 px-6">
+
+                <p class="text-center text-sm md:text-base">
+                    INBEFIC: Plataforma Oficial de Inventario Didáctico y Materiales de Limpieza
+
+                   <p class="text-center">&copy;2026 Derechos Reservados: Merlyn/Nataly/Dileymi/Sandra/Otoniel</p>
+
+                </p>
+                
+            </footer>
+</body>
+
+</html>

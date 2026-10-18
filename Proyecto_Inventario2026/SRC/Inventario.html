@@ -1,0 +1,901 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inventario - INBEFIC</title>
+
+    <link href="./output.css" rel="stylesheet">
+
+    <style>
+        #sidebar {
+            width: 0;
+            min-width: 0;
+            overflow: hidden;
+            transition: width 0.3s ease, min-width 0.3s ease;
+        }
+
+        #sidebar.menu-abierto {
+            width: 260px;
+            min-width: 260px;
+        }
+
+        #area-contenido {
+            min-width: 0;
+            flex: 1;
+        }
+
+        @media (max-width: 767px) {
+            #sidebar.menu-abierto {
+                width: 230px;
+                min-width: 230px;
+            }
+        }
+    </style>
+</head>
+
+<body class="min-h-screen bg-gray-100 text-gray-800">
+
+    <div class="flex min-h-screen w-full">
+
+        <!-- MENÚ LATERAL -->
+
+        <aside id="sidebar" class="bg-white border-r border-slate-300 shadow-sm flex-shrink-0">
+
+            <div class="w-[260px] min-h-screen flex flex-col">
+
+                <!-- PERFIL -->
+
+                <div class="px-5 py-5 border-b border-slate-200 text-center">
+
+                    <img src="../img/INBEFIC.jpg"
+                        alt="Logo INBEFIC"
+                        class="w-28 h-28 mx-auto object-contain mb-3">
+
+                    <h1 class="text-lg font-bold text-slate-900">
+                        INBEFIC
+                    </h1>
+
+                    <p class="text-xs text-slate-500 mt-1">
+                        Aplicacion de Inventario
+                    </p>
+
+                </div>
+
+                <!-- MENÚ -->
+
+                <nav class="flex-1 p-4 space-y-2">
+
+                    <a href="Inventario.html"
+                        class="flex items-center gap-3 px-4 py-3 rounded-lg bg-slate-900 text-white font-medium">
+                        📦 Inventario
+                    </a>
+
+                    <a href="Acciones rapidas.html"
+                        class="flex items-center gap-3 px-4 py-3 rounded-lg text-slate-800 hover:bg-slate-100 font-medium transition">
+                        ⚡ Acciones Rápidas
+                    </a>
+
+                    <a href="Generar_Reporte.html"
+                        class="flex items-center gap-3 px-4 py-3 rounded-lg text-slate-800 hover:bg-slate-100 font-medium transition">
+                        📊 Generar Reportes
+                    </a>
+
+                </nav>
+
+                <!-- CERRAR SESIÓN -->
+
+                <div class="p-4 border-t border-slate-200">
+
+                    <button onclick="cerrarSesion()"
+                        class="w-full flex items-center gap-3 px-4 py-3 rounded-lg text-red-600 hover:bg-red-50 font-medium transition">
+                        🚪 Cerrar sesión
+                    </button>
+
+                </div>
+
+            </div>
+
+        </aside>
+
+
+        <!-- CONTENIDO -->
+
+        <div id="area-contenido">
+
+            <!-- CONTENEDOR DE ARRIBA -->
+
+            <header class="bg-slate-800 border-b border-slate-900 shadow-sm sticky top-0 z-20">
+
+                <div class="flex items-center gap-4 px-4 sm:px-6 lg:px-8 py-4">
+
+                    <button id="boton-menu"
+                        onclick="alternarMenu()"
+                        class="flex-shrink-0 w-11 h-11 rounded-lg bg-white/10 hover:bg-white/20 text-white text-xl transition">
+
+                        <span id="icono-menu">☰</span>
+
+                    </button>
+
+                </div>
+
+            </header>
+
+
+            <!-- CONTENIDO PRINCIPAL -->
+
+            <main class="flex-1 p-4 md:p-8">
+
+                <!-- ENCABEZADO -->
+
+                <div class="mb-8 flex flex-col gap-5 md:flex-row md:items-center md:justify-between">
+
+                    <div>
+
+                        <h1 class="text-3xl font-bold text-gray-800">
+                            Inventario
+                        </h1>
+
+                    </div>
+
+
+                    <!-- BUSCADOR -->
+
+                    <div class="relative w-full md:w-80">
+
+                        <input id="buscador"
+                            type="text"
+                            placeholder="Buscar material..."
+                            class="w-full rounded-full border border-gray-300 bg-white py-3 pl-11 pr-4 outline-none transition focus:border-blue-500 focus:ring-2 focus:ring-blue-200">
+
+                        <span class="absolute left-4 top-3">
+                            🔍
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+                <!-- TABLA DE INVENTARIO -->
+
+                <div class="overflow-hidden rounded-xl border border-gray-200 bg-white shadow-md">
+
+                    <div class="overflow-x-auto">
+
+                        <table class="w-full min-w-[950px] text-center">
+
+                            <thead>
+
+                                <tr class="bg-blue-600 text-white">
+
+                                    <th class="px-5 py-4">
+                                        ID
+                                    </th>
+
+                                    <th class="px-5 py-4">
+                                        Fecha
+                                    </th>
+
+                                    <th class="px-5 py-4">
+                                        Hora
+                                    </th>
+
+                                    <th class="px-5 py-4">
+                                        Tipo
+                                    </th>
+
+                                    <th class="px-5 py-4">
+                                        Producto
+                                    </th>
+
+                                    <th class="px-5 py-4">
+                                        Categoría
+                                    </th>
+
+                                    <th class="px-5 py-4">
+                                        Cantidad
+                                    </th>
+
+                                    <th class="px-5 py-4">
+                                        Mínimo
+                                    </th>
+
+                                    <th class="px-5 py-4">
+                                        Estado
+                                    </th>
+
+                                    <th class="px-5 py-4">
+                                        Acción
+                                    </th>
+
+                                </tr>
+
+                            </thead>
+
+                            <tbody id="tablaInventario"
+                                class="divide-y divide-gray-200">
+                            </tbody>
+
+                        </table>
+
+                    </div>
+
+                </div>
+
+
+                <!-- ALERTA DE STOCK -->
+
+                <div id="alertaStock"
+                    class="mt-5 flex items-center gap-4 rounded-xl border border-red-300 bg-red-50 p-5">
+
+                    <div class="flex h-14 w-14 shrink-0 items-center justify-center rounded-full bg-red-100 text-2xl">
+                        ⚠️
+                    </div>
+
+                    <div>
+
+                        <h2 class="text-lg font-bold text-red-700">
+                            Stock por debajo del mínimo
+                        </h2>
+
+                        <p id="mensajeAlerta"
+                            class="mt-1 text-red-500">
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </main>
+
+
+        </div>
+
+    </div>
+
+
+    <script>
+
+        let historial = JSON.parse(
+            localStorage.getItem("historial_inventario")
+        ) || [];
+
+
+        /* BOTÓN DEL MENÚ */
+
+        function alternarMenu() {
+
+            const sidebar =
+                document.getElementById("sidebar");
+
+            const icono =
+                document.getElementById("icono-menu");
+
+            sidebar.classList.toggle("menu-abierto");
+
+            if (sidebar.classList.contains("menu-abierto")) {
+
+                icono.textContent = "✕";
+
+            } else {
+
+                icono.textContent = "☰";
+
+            }
+
+        }
+
+
+        /* CERRAR SESIÓN */
+
+        function cerrarSesion() {
+
+            window.location.href = "index.html";
+
+        }
+
+
+        /*
+            OBTENER INVENTARIO ACTUAL
+
+            Cada producto se agrupa por nombre.
+
+            ENTRADA = SUMA
+            SALIDA  = RESTA
+        */
+
+        function obtenerInventario() {
+
+            const productos = {};
+
+            historial.forEach(function (movimiento) {
+
+                const nombreProducto =
+                    String(movimiento.producto || "").trim();
+
+                if (!nombreProducto) {
+                    return;
+                }
+
+                const clave =
+                    nombreProducto.toLowerCase();
+
+                const cantidad =
+                    Number(movimiento.cantidad) || 0;
+
+
+
+                if (!productos[clave]) {
+
+                    productos[clave] = {
+
+                        id: movimiento.id || "",
+
+                        fecha: movimiento.fecha || "",
+
+                        hora: movimiento.hora || "",
+
+                        tipo: movimiento.tipo || "",
+
+                        producto: nombreProducto,
+
+                        categoria: movimiento.categoria || "",
+
+                        cantidad: 0
+
+                    };
+
+                }
+
+
+                /*
+                    SUMAR ENTRADAS
+                */
+
+                if (
+                    String(movimiento.tipo || "")
+                        .trim()
+                        .toLowerCase() === "entrada"
+                ) {
+
+                    productos[clave].cantidad += cantidad;
+
+                }
+
+
+                /*
+                    RESTAR SALIDAS
+                */
+
+                else if (
+                    String(movimiento.tipo || "")
+                        .trim()
+                        .toLowerCase() === "salida"
+                ) {
+
+                    productos[clave].cantidad -= cantidad;
+
+                }
+
+
+
+                productos[clave].id =
+                    movimiento.id ||
+                    productos[clave].id;
+
+                productos[clave].fecha =
+                    movimiento.fecha ||
+                    productos[clave].fecha;
+
+                productos[clave].hora =
+                    movimiento.hora ||
+                    productos[clave].hora;
+
+                productos[clave].tipo =
+                    movimiento.tipo ||
+                    productos[clave].tipo;
+
+                productos[clave].categoria =
+                    movimiento.categoria ||
+                    productos[clave].categoria;
+
+            });
+
+
+            /*
+                Solo mostramos productos que
+                todavía tengan existencia.
+            */
+
+            return Object.values(productos).filter(function (producto) {
+
+                return producto.cantidad > 0;
+
+            });
+
+        }
+
+
+        function mostrarInventario() {
+
+            const tbody =
+                document.getElementById("tablaInventario");
+
+            const inventario =
+                obtenerInventario();
+
+            tbody.innerHTML = "";
+
+            if (inventario.length === 0) {
+
+                tbody.innerHTML = `
+                    <tr>
+                        <td colspan="10"
+                            class="px-5 py-8 text-center text-gray-500">
+                            No hay productos registrados.
+                        </td>
+                    </tr>
+                `;
+
+                actualizarAlerta();
+
+                return;
+            }
+
+
+            inventario.forEach(function (item, indice) {
+
+                const fila =
+                    document.createElement("tr");
+
+                fila.className =
+                    "fila-material hover:bg-gray-50";
+
+                const codigo =
+                    item.id || `PROD-${indice + 1}`;
+
+                let categoriaTexto = "Didáctico";
+
+                if (
+                    item.categoria &&
+                    item.categoria.toLowerCase().includes("limpieza")
+                ) {
+
+                    categoriaTexto = "Limpieza";
+
+                }
+
+                const minimo = 10;
+
+
+                fila.innerHTML = `
+
+                    <td class="codigo px-5 py-4 font-bold text-blue-700">
+                        ${codigo}
+                    </td>
+
+                    <td class="px-5 py-4">
+                        ${item.fecha}
+                    </td>
+
+                    <td class="px-5 py-4">
+                        ${item.hora}
+                    </td>
+
+                    <td class="px-5 py-4">
+
+                        <span class="rounded-full px-3 py-1 text-sm font-semibold
+                            ${
+                                item.tipo === "Entrada"
+                                    ? "bg-green-100 text-green-700"
+                                    : "bg-red-100 text-red-700"
+                            }">
+
+                            ${item.tipo}
+
+                        </span>
+
+                    </td>
+
+                    <td class="material px-5 py-4">
+                        ${item.producto}
+                    </td>
+
+                    <td class="px-5 py-4">
+                        ${categoriaTexto}
+                    </td>
+
+                    <td class="px-5 py-4">
+
+                        <input
+                            type="number"
+                            value="${item.cantidad}"
+                            min="0"
+                            class="cantidad w-20 rounded-lg border border-gray-300 p-2 text-center outline-none focus:border-blue-500">
+
+                    </td>
+
+                    <td class="px-5 py-4">
+
+                        <span class="minimo">
+                            ${minimo}
+                        </span>
+
+                    </td>
+
+                    <td class="px-5 py-4">
+
+                        <span class="estado rounded-full px-3 py-1 text-sm font-semibold">
+                        </span>
+
+                    </td>
+
+                    <td class="px-5 py-4">
+
+                        <button
+                            class="editar rounded-lg bg-blue-600 px-4 py-2 font-semibold text-white transition hover:bg-blue-700">
+
+                            Editar
+
+                        </button>
+
+                    </td>
+
+                `;
+
+                tbody.appendChild(fila);
+
+            });
+
+
+            activarEventos();
+
+            actualizarEstado();
+
+        }
+
+
+        function actualizarEstado() {
+
+            const filas =
+                document.querySelectorAll(".fila-material");
+
+            filas.forEach(function (fila) {
+
+                const cantidadInput =
+                    fila.querySelector(".cantidad");
+
+                const minimoElemento =
+                    fila.querySelector(".minimo");
+
+                const estado =
+                    fila.querySelector(".estado");
+
+                const cantidad =
+                    Number(cantidadInput.value);
+
+                const minimo =
+                    Number(minimoElemento.textContent);
+
+
+                if (cantidad < minimo) {
+
+                    estado.textContent =
+                        "Stock bajo";
+
+                    estado.classList.remove(
+                        "bg-green-100",
+                        "text-green-700"
+                    );
+
+                    estado.classList.add(
+                        "bg-red-100",
+                        "text-red-600"
+                    );
+
+                } else {
+
+                    estado.textContent =
+                        "Normal";
+
+                    estado.classList.remove(
+                        "bg-red-100",
+                        "text-red-600"
+                    );
+
+                    estado.classList.add(
+                        "bg-green-100",
+                        "text-green-700"
+                    );
+
+                }
+
+            });
+
+            actualizarAlerta();
+
+        }
+
+
+        function actualizarAlerta() {
+
+            const filas =
+                document.querySelectorAll(".fila-material");
+
+            const alerta =
+                document.getElementById("alertaStock");
+
+            const mensaje =
+                document.getElementById("mensajeAlerta");
+
+            let productosBajos = [];
+
+
+            filas.forEach(function (fila) {
+
+                const material =
+                    fila.querySelector(".material")
+                        .textContent
+                        .trim();
+
+                const cantidad =
+                    Number(
+                        fila.querySelector(".cantidad").value
+                    );
+
+                const minimo =
+                    Number(
+                        fila.querySelector(".minimo").textContent
+                    );
+
+
+                if (cantidad < minimo) {
+
+                    productosBajos.push(
+                        material +
+                        ": " +
+                        cantidad +
+                        " unidades (mínimo " +
+                        minimo +
+                        ")"
+                    );
+
+                }
+
+            });
+
+
+            if (productosBajos.length > 0) {
+
+                alerta.classList.remove("hidden");
+
+                mensaje.innerHTML =
+                    productosBajos.join("<br>");
+
+            } else {
+
+                alerta.classList.add("hidden");
+
+            }
+
+        }
+
+
+        function activarEventos() {
+
+            document.querySelectorAll(".cantidad")
+                .forEach(function (input) {
+
+                    input.addEventListener(
+                        "input",
+                        actualizarEstado
+                    );
+
+                });
+
+
+            document.querySelectorAll(".editar")
+                .forEach(function (boton) {
+
+                    boton.addEventListener(
+                        "click",
+                        function () {
+
+                            const fila =
+                                boton.closest(".fila-material");
+
+                            const material =
+                                fila.querySelector(".material")
+                                    .textContent
+                                    .trim();
+
+                            const cantidad =
+                                fila.querySelector(".cantidad");
+
+                            cantidad.focus();
+
+                            cantidad.select();
+
+                            alert(
+                                "Editando: " +
+                                material +
+                                "\nPuedes cambiar la cantidad."
+                            );
+
+                        }
+                    );
+
+                });
+
+        }
+
+
+        const buscador =
+            document.getElementById("buscador");
+
+
+        buscador.addEventListener(
+            "input",
+            function () {
+
+                const texto =
+                    buscador.value
+                        .toLowerCase()
+                        .trim();
+
+                const filas =
+                    document.querySelectorAll(
+                        ".fila-material"
+                    );
+
+
+                filas.forEach(function (fila) {
+
+                    const material =
+                        fila.querySelector(".material")
+                            .textContent
+                            .toLowerCase();
+
+                    const codigo =
+                        fila.querySelector(".codigo")
+                            .textContent
+                            .toLowerCase();
+
+
+                    if (
+                        material.includes(texto) ||
+                        codigo.includes(texto)
+                    ) {
+
+                        fila.classList.remove("hidden");
+
+                    } else {
+
+                        fila.classList.add("hidden");
+
+                    }
+
+                });
+
+            }
+        );
+
+
+        /*
+            ACTUALIZAR AUTOMÁTICAMENTE CUANDO
+            CAMBIA EL HISTORIAL DESDE OTRA PESTAÑA
+        */
+
+        window.addEventListener(
+            "storage",
+            function (evento) {
+
+                if (
+                    evento.key ===
+                    "historial_inventario"
+                ) {
+
+                    historial =
+                        JSON.parse(
+                            evento.newValue
+                        ) || [];
+
+                    mostrarInventario();
+
+                }
+
+            }
+        );
+
+
+        /*
+            COMPROBACIÓN AUTOMÁTICA
+
+            Esto permite detectar el cambio aunque
+            el registro se haya realizado desde otra
+            página de la aplicación.
+
+            No modifica ningún elemento visual.
+        */
+
+        let ultimoHistorial =
+            localStorage.getItem(
+                "historial_inventario"
+            ) || "[]";
+
+
+        setInterval(function () {
+
+            const historialActual =
+                localStorage.getItem(
+                    "historial_inventario"
+                ) || "[]";
+
+
+            if (
+                historialActual !==
+                ultimoHistorial
+            ) {
+
+                ultimoHistorial =
+                    historialActual;
+
+                historial =
+                    JSON.parse(
+                        historialActual
+                    ) || [];
+
+                mostrarInventario();
+
+            }
+
+        }, 500);
+
+
+        /*
+            CUANDO SE REGRESA A INVENTARIO,
+            ACTUALIZAR LOS DATOS.
+        */
+
+        window.addEventListener(
+            "focus",
+            function () {
+
+                historial =
+                    JSON.parse(
+                        localStorage.getItem(
+                            "historial_inventario"
+                        )
+                    ) || [];
+
+                ultimoHistorial =
+                    localStorage.getItem(
+                        "historial_inventario"
+                    ) || "[]";
+
+                mostrarInventario();
+
+            }
+        );
+
+
+        mostrarInventario();
+
+    </script>
+
+            <!-- CONTENEDOR DE ABAJO -->
+
+            <footer class="bg-slate-800 border-t-4 border-red-600 text-white py-6 px-6">
+
+                <p class="text-center text-sm md:text-base">
+                    INBEFIC: Plataforma Oficial de Inventario Didáctico y Materiales de Limpieza
+
+                   <p class="text-center">&copy;2026 Derechos Reservados: Merlyn/Nataly/Dileymi/Sandra/Otoniel</p>
+
+                </p>
+                
+            </footer>
+</body>
+</html>
