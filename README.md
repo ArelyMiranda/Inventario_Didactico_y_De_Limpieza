@@ -96,4 +96,4 @@ Repositorio mantenido por [@ArelyMiranda](https://github.com/ArelyMiranda).
  
 ## 📄 Licencia
  
-© 2026 INBEFIC. Todos los derechos reservados.<img width="273" height="307" alt="images" src="https://github.com/user-attachments/assets/c2a74a79-2f80-452f-aa94-6a9a336801ce" />
+© 2026 INBEFIC. Todos los derechos reservados.
