@@ -1,0 +1,33 @@
+
+# ==================================
+# PROYECTO DE INVENTARIO - INBEFIC
+# ==================================
+
+# Proteger conexión a la base de datos
+conexion.php
+config.local.php
+
+# Archivos privados
+.env
+.env.*
+
+# Copias de seguridad temporales
+*.bak
+*.old
+*.tmp
+
+# Archivos de registros
+*.log
+
+# Carpetas innecesarias
+node_modules/
+vendor/
+
+# Archivos del sistema
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Archivos temporales de editores
+.vscode/
+.idea/
