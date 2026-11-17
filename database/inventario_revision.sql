@@ -2,11 +2,11 @@
 -- Base de datos de demostración INBEFIC
 -- Para revisión del proyecto de inventario
 
-CREATE DATABASE IF NOT EXISTS `inventario`
+CREATE DATABASE IF NOT EXISTS `inventario_demo`
 DEFAULT CHARACTER SET utf8mb4
 COLLATE utf8mb4_general_ci;
 
-USE `inventario`;
+USE `inventario_demo`;
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET FOREIGN_KEY_CHECKS = 0;

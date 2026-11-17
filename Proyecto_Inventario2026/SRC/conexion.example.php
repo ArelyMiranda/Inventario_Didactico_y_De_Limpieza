@@ -3,7 +3,7 @@
 $servidor = "localhost";
 $usuario = "TU_USUARIO";
 $password = "TU_CONTRASEÑA";
-$basedatos = "inventario";
+$basedatos = "inventario_demo";
 
 $conexion = new mysqli(
     $servidor,

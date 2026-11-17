@@ -1,99 +1,226 @@
 # Inventario_Didactico_y_De_Limpieza
 
-<div align="center">
-<img width="70" alt="Logo" src="https://github.com/user-attachments/assets/bab3db30-0334-4138-8c12-a9f25d49bfb8" />
-# 📦 Inventario Didáctico y Material de Limpieza
- 
-**Plataforma oficial de inventario del Instituto Nacional Prof. Bertha Fidelia Cañas (INBEFIC)**
- 
+[Logo institucional](../img/INBEFIC.jpg)
+
+**Sistema web de gestión de inventario del Instituto Nacional Prof. Bertha Fidelia Cañas (INBEFIC)**
+
 ![HTML5](https://img.shields.io/badge/HTML5-E34F26?logo=html5&logoColor=white)
-![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-4.x-06B6D4?logo=tailwindcss&logoColor=white)
+![CSS3](https://img.shields.io/badge/CSS3-1572B6?logo=css3&logoColor=white)
 ![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?logo=javascript&logoColor=black)
-![Estado](https://img.shields.io/badge/estado-en%20desarrollo-yellow)
- 
-</div>
+![PHP](https://img.shields.io/badge/PHP-777BB4?logo=php&logoColor=white)
+![MySQL](https://img.shields.io/badge/MySQL-4479A1?logo=mysql&logoColor=white)
+![Estado](https://img.shields.io/badge/Estado-En%20desarrollo-yellow)
+
 ---
- 
+
 ## 📝 Descripción
- 
-Aplicación web para la **gestión, control y organización** de los recursos didácticos y los materiales de limpieza del instituto. Permite registrar entradas y salidas, consultar las existencias, recibir alertas de stock bajo y generar reportes imprimibles.
- 
-Todo funciona en el navegador y los datos se guardan en el `localStorage`, por lo que **no necesita servidor ni base de datos**.
- 
-## ✨ Funcionalidades
- 
-- 🔐 **Registro e inicio de sesión** con validación de campos y opción de mostrar/ocultar la contraseña.
-- 📋 **Inventario** con el stock actual de cada producto y estado según la cantidad.
-- ⚠️ **Alerta de stock bajo** cuando un producto está por debajo del mínimo (10 unidades).
-- ⚡ **Acciones rápidas** para registrar entradas y salidas de productos (encargado, fecha, categoría, producto y cantidad), con historial que se puede filtrar, eliminar, vaciar o restaurar.
-- 📊 **Generar reporte** con filtros por categoría (Didáctico / Limpieza) y tipo de movimiento (Entrada / Salida), listo para imprimir.
-- 🚪 **Cierre de sesión** y redirección automática si ya hay una sesión activa.
-- 📱 Diseño **responsive**, con menú de navegación adaptable.
+
+Aplicación web desarrollada para la **gestión, control y organización de los recursos didácticos y materiales de limpieza** del Instituto Nacional Prof. Bertha Fidelia Cañas (INBEFIC).
+
+El sistema permite administrar los productos del inventario, controlar las existencias, registrar entradas y salidas, consultar el historial de movimientos y generar reportes.
+
+A diferencia de la versión inicial, el sistema utiliza **PHP para procesar las operaciones y MySQL/MariaDB para almacenar la información**, permitiendo que los datos se administren desde una base de datos.
+
+## ✨ Funcionalidades principales
+
+- 🔐 **Registro de usuarios:** permite crear cuentas para acceder al sistema.
+- 🔑 **Inicio de sesión:** valida las credenciales del usuario.
+- 🚪 **Cierre de sesión:** permite finalizar la sesión de forma segura.
+- 📋 **Gestión de inventario:** muestra los productos y sus existencias.
+- ➕ **Registro de productos:** permite agregar productos nuevos al inventario.
+- ✏️ **Modificación de productos:** permite actualizar la información de los productos.
+- 🗑️ **Eliminación de productos:** permite eliminar registros del inventario.
+- 📦 **Control de existencias:** actualiza las cantidades disponibles.
+- ⚡ **Acciones rápidas:** permite registrar entradas y salidas de productos.
+- 📚 **Historial de movimientos:** almacena y permite consultar los movimientos realizados.
+- ❌ **Eliminación de movimientos:** permite eliminar registros del historial mediante su archivo correspondiente.
+- ⚠️ **Alertas de stock mínimo:** identifica productos cuya existencia está por debajo del mínimo establecido (10 unidades).
+- 📊 **Generación de reportes:** permite consultar información de los movimientos del inventario.
+- 📱 **Diseño responsive:** adapta las páginas a diferentes tamaños de pantalla.
+
 ## 📂 Estructura del proyecto
- 
+
+```text
+Inventario_Didactico_y_De_Limpieza/
+│
+├── Proyecto_Inventario2026/
+│   └── SRC/
+│       ├── index.html
+│       ├── inbefic-registro.html
+│       ├── inicio_sesion.html
+│       ├── inicio_sesión.html
+│       ├── Inventario.html
+│       ├── Acciones rapidas.html
+│       ├── Generar_Reporte.html
+│       │
+│       ├── conexion.example.php
+│       ├── consultar.php
+│       ├── guardar.php
+│       ├── modificar.php
+│       ├── eliminar.php
+│       ├── eliminar_movimiento.php
+│       ├── registrar_usuario.php
+│       ├── iniciar_sesion.php
+│       ├── proteger.php
+│       ├── cerrar_sesion.php
+│       ├── reporte.php
+│       │
+│       ├── input.css
+│       └── output.css
+│
+├── database/
+│   └── inventario_revision.sql
+│
+├── .gitignore
+└── README.md
 ```
-├── index.html                # Pantalla de bienvenida
-├── inbefic-registro.html     # Registro de usuario
-├── inicio_sesión.html        # Inicio de sesión
-├── Inventario.html           # Vista del inventario y alertas de stock
-├── Acciones_rapidas.html     # Registro de entradas/salidas e historial
-├── Generar_Reporte.html      # Reportes con filtros
-├── INBEFIC.jpg               # Logo de la institución
-├── input.css                 # Archivo fuente de Tailwind CSS
-├── output.css                # CSS generado por Tailwind
-├── package.json              # Dependencias del proyecto
-└── package-lock.json
-```
- 
-## 🛠️ Tecnologías
- 
-- **HTML5** y **JavaScript** (vanilla)
-- **[Tailwind CSS 4](https://tailwindcss.com/)** (`@tailwindcss/cli`)
-- **[Font Awesome 7](https://fontawesome.com/)** para los íconos (vía CDN)
-- **localStorage** del navegador para guardar usuarios, sesión e historial
-## 🚀 Instalación y uso
- 
+
+## 🛠️ Tecnologías utilizadas
+
+- **HTML5:** estructura de las páginas web.
+- **CSS3:** diseño y presentación de la aplicación.
+- **JavaScript:** interactividad y funciones del lado del navegador.
+- **Tailwind CSS:** estilos y diseño adaptable.
+- **PHP:** procesamiento de formularios, usuarios, productos y movimientos.
+- **MySQL / MariaDB:** almacenamiento y administración de los datos.
+- **XAMPP:** servidor local para ejecutar Apache, PHP y MySQL/MariaDB.
+- **Font Awesome:** iconos utilizados en la interfaz.
+- **Git y GitHub:** control de versiones y alojamiento del código fuente.
+
+## 🚀 Instalación y configuración
+
 ### Requisitos
- 
-- Un navegador web moderno (Chrome, Edge, Firefox…)
-- [Node.js](https://nodejs.org/) *(solo si vas a modificar los estilos)*
-### Pasos
- 
-1. **Clona el repositorio**
+
+- Tener instalado [XAMPP](https://www.apachefriends.org/).
+- Tener Apache y MySQL activos.
+- Contar con un navegador web.
+- Tener acceso a phpMyAdmin.
+
+### Pasos para instalar
+
+**1. Descargar el proyecto**
+
+Clonar el repositorio desde GitHub:
+
 ```bash
-   git clone https://github.com/ArelyMiranda/Inventario_Didactico_y_De_Limpieza.git
-   cd Inventario_Didactico_y_De_Limpieza
+git clone https://github.com/ArelyMiranda/Inventario_Didactico_y_De_Limpieza.git
 ```
- 
-2. **Abre `index.html`** en tu navegador (o usa la extensión *Live Server* de VS Code).
-3. **Regístrate** y luego **inicia sesión** para entrar al inventario.
-### Modificar los estilos (opcional)
- 
-```bash
-npm install
-npx @tailwindcss/cli -i ./input.css -o ./output.css --watch
+
+**2. Copiar el proyecto en XAMPP**
+
+Colocar la carpeta `Proyecto_Inventario2026` dentro de la carpeta `htdocs` de XAMPP.
+
+**3. Iniciar los servicios**
+
+Abrir el panel de control de XAMPP e iniciar:
+
+- Apache
+- MySQL
+
+**4. Crear la base de datos**
+
+Entrar a phpMyAdmin:
+
+```text
+http://localhost/phpmyadmin
 ```
- 
-## 🧭 Flujo de uso
- 
+
+Importar el archivo:
+
+```text
+database/inventario_revision.sql
 ```
-index.html ──► Registro ──► Inicio de sesión ──► Inventario
-                                                    │
-                                   ┌────────────────┴───────────────┐
-                             Acciones rápidas                 Generar reporte
+
+El archivo crea la base de datos de demostración llamada `inventario_demo`, junto con las tablas y datos de ejemplo.
+
+**5. Configurar la conexión PHP**
+
+Dentro de `Proyecto_Inventario2026/SRC` se encuentra el archivo `conexion.example.php`.
+
+- Crear una copia de ese archivo.
+- Cambiar el nombre de la copia a `conexion.php`.
+- Configurar el servidor, usuario, contraseña y base de datos.
+- Utilizar `inventario_demo` cuando se trabaje con la base de datos de demostración.
+
+**Importante:** el archivo `conexion.php` contiene las credenciales de conexión y no debe publicarse en GitHub. El repositorio incluye únicamente una plantilla de ejemplo.
+
+**6. Abrir la aplicación**
+
+Si la carpeta está ubicada en:
+
+```text
+C:\xampp\htdocs\Proyecto_Inventario2026\SRC
 ```
- 
-## ⚠️ Notas importantes
- 
-- Los datos se almacenan **solo en el navegador** de cada equipo; si se borra el caché o se cambia de navegador, se pierden.
-- Las contraseñas se guardan sin cifrar en `localStorage`, por lo que este proyecto es **educativo** y no debe usarse con datos sensibles.
-- Las páginas de inicio, registro y sesión cargan el logo desde `../img/INBEFIC.jpg`; si el logo no aparece, ajusta esa ruta a donde tengas la imagen.
+
+Abrir en el navegador:
+
+```text
+http://localhost/Proyecto_Inventario2026/SRC/index.html
+```
+
+Si se utiliza otra ubicación dentro de `htdocs`, ajustar la dirección según corresponda.
+
+## 🧭 Flujo de funcionamiento
+
+```text
+                 index.html
+                      │
+             ┌────────┴────────┐
+             │                 │
+          Registro          Inicio de sesión
+             │                 │
+             └────────┬────────┘
+                      │
+                  Inventario
+                      │
+          ┌───────────┼───────────┐
+          │           │           │
+     Consultar    Acciones    Generar
+     productos    rápidas     reportes
+                      │
+                Entradas y salidas
+                      │
+                Historial de
+                 movimientos
+                      │
+                 Base de datos
+                 MySQL/MariaDB
+```
+
+## 🗄️ Base de datos
+
+El proyecto incluye un archivo SQL de demostración:
+
+`database/inventario_revision.sql`
+
+La base de datos utiliza las siguientes tablas:
+
+- **productos:** almacena los productos, categorías y cantidades disponibles.
+- **movimientos:** registra las entradas y salidas, cantidades, responsables y fechas.
+- **usuarios:** almacena los datos de las cuentas registradas.
+
+La base de datos de demostración se llama `inventario_demo`.
+
+⚠️ **Advertencia:** el archivo SQL elimina y vuelve a crear las tablas de demostración. Debe importarse únicamente en una base de datos de prueba. No debe utilizarse sobre una base de datos que contenga información que se desee conservar.
+
+## 🔒 Seguridad y consideraciones
+
+- El archivo de conexión real `conexion.php` no debe publicarse en GitHub.
+- Se incluye `conexion.example.php` como plantilla para configurar la conexión.
+- El archivo `.gitignore` ayuda a excluir archivos privados y temporales.
+- Las operaciones de la aplicación se procesan mediante archivos PHP.
+- La información del inventario se almacena en MySQL/MariaDB.
+
 ## 👥 Autores
- 
-Proyecto realizado por: **Merlyn, Nataly, Dileymi, Sandra y Otoniel**
- 
+
+Proyecto realizado por:
+
+**Merlyn, Nataly, Dileymi, Sandra y Otoniel.**
+
 Repositorio mantenido por [@ArelyMiranda](https://github.com/ArelyMiranda).
- 
+
 ## 📄 Licencia
- 
+
 © 2026 INBEFIC. Todos los derechos reservados.
+
+Proyecto académico desarrollado con fines educativos.
