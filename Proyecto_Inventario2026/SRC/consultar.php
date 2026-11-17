@@ -1,0 +1,3 @@
+<?php
+session_start();require_once 'conexion.php';header('Content-Type: application/json; charset=utf-8');if(empty($_SESSION['usuario_id'])){http_response_code(401);echo json_encode(['ok'=>false]);exit;}
+$r=$conexion->query("SELECT p.id,p.nombre AS producto,p.categoria,p.cantidad AS stock,m.tipo AS ultimo_tipo,DATE_FORMAT(m.fecha,'%Y-%m-%d') AS ultima_fecha,TIME_FORMAT(m.fecha,'%H:%i') AS ultima_hora FROM productos p LEFT JOIN (SELECT producto_id,MAX(id) ultimo_id FROM movimientos GROUP BY producto_id) x ON x.producto_id=p.id LEFT JOIN movimientos m ON m.id=x.ultimo_id ORDER BY p.id ASC");echo json_encode(['ok'=>true,'productos'=>$r->fetch_all(MYSQLI_ASSOC)],JSON_UNESCAPED_UNICODE);

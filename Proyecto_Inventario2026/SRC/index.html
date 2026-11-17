@@ -375,7 +375,7 @@
                 <div class="botones-inicio">
 
                     <a
-                        href="inicio_sesión.html"
+                        href="inicio_sesion.html"
                         class="boton-inicio boton-azul"
                     >
 
@@ -432,15 +432,10 @@
 
     <!-- COMPROBAR SESIÓN -->
     <script>
-
-        const sesionActiva =
-            localStorage.getItem("sesionINBEFIC");
-
-        if (sesionActiva === "activa") {
-            window.location.href = "Inventario.html";
-        }
-
-    </script>
+// Navegación de bienvenida. El acceso se valida en el servidor al iniciar sesión.
+function irARegistro(){location.href='inbefic-registro.html';}
+function irAInicioSesion(){location.href='inicio_sesion.html';}
+</script>
 
             <!-- CONTENEDOR DE ABAJO -->
 

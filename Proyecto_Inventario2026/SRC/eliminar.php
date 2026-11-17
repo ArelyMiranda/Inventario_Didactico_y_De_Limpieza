@@ -1,0 +1,3 @@
+<?php
+session_start();require_once 'conexion.php';header('Content-Type: application/json; charset=utf-8');if(empty($_SESSION['usuario_id'])){http_response_code(401);exit;}
+$id=filter_input(INPUT_POST,'id',FILTER_VALIDATE_INT);if(!$id){http_response_code(422);echo json_encode(['ok'=>false,'mensaje'=>'ID inválido']);exit;}try{$q=$conexion->prepare('DELETE FROM productos WHERE id=?');$q->bind_param('i',$id);$q->execute();echo json_encode(['ok'=>true]);}catch(Throwable $e){http_response_code(409);echo json_encode(['ok'=>false,'mensaje'=>'No se puede eliminar un producto que tiene movimientos registrados.']);}

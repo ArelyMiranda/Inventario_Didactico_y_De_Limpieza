@@ -1,0 +1,7 @@
+<?php
+session_start(); require_once "conexion.php"; header("Content-Type: application/json; charset=utf-8");
+if(empty($_SESSION["usuario_id"])){http_response_code(401);echo json_encode(["ok"=>false,"mensaje"=>"Sesión vencida."]);exit;}
+$id=filter_input(INPUT_POST,"id",FILTER_VALIDATE_INT); if(!$id){http_response_code(422);echo json_encode(["ok"=>false,"mensaje"=>"Movimiento inválido."]);exit;}
+try{$conexion->begin_transaction();$q=$conexion->prepare("SELECT producto_id,tipo,cantidad FROM movimientos WHERE id=? FOR UPDATE");$q->bind_param("i",$id);$q->execute();$m=$q->get_result()->fetch_assoc();if(!$m)throw new Exception("El movimiento ya no existe.");$pid=(int)$m["producto_id"];$cant=(int)$m["cantidad"];
+if($m["tipo"]==="Entrada"){$u=$conexion->prepare("UPDATE productos SET cantidad=cantidad-? WHERE id=? AND cantidad>=?");$u->bind_param("iii",$cant,$pid,$cant);$u->execute();if(!$u->affected_rows)throw new Exception("No se puede eliminar: el stock actual ya no permite revertir esa entrada.");}else{$u=$conexion->prepare("UPDATE productos SET cantidad=cantidad+? WHERE id=?");$u->bind_param("ii",$cant,$pid);$u->execute();}
+$d=$conexion->prepare("DELETE FROM movimientos WHERE id=?");$d->bind_param("i",$id);$d->execute();$conexion->commit();echo json_encode(["ok"=>true,"mensaje"=>"Movimiento eliminado y stock actualizado."]);}catch(Throwable $e){$conexion->rollback();http_response_code(409);echo json_encode(["ok"=>false,"mensaje"=>$e->getMessage()]);}
