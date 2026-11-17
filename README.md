@@ -1,6 +1,6 @@
 # Inventario_Didactico_y_De_Limpieza
 
-[Logo institucional](../img/INBEFIC.jpg)
+![Logo institucional](Proyecto_Inventario2026/img/INBEFIC.jpg)
 
 **Sistema web de gestión de inventario del Instituto Nacional Prof. Bertha Fidelia Cañas (INBEFIC)**
 
